@@ -18,8 +18,9 @@ st.title("📊 Painel do Corretor")
 
 if st.button("🚪 Sair"):
     limpar_login()
-    st.session_state.clear()
-    st.switch_page("pages/login.py")
+    st.session_state.logado = False
+    st.session_state.usuario = None
+    st.rerun()
 
 imoveis = listar_imoveis(st.session_state.usuario)
 
