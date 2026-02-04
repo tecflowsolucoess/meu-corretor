@@ -1,3 +1,5 @@
+if not st.session_state.get("logado"):
+    st.switch_page("pages/login.py")
 import streamlit as st
 from services.session_service import recuperar_usuario_logado, limpar_login
 from services.banco import listar_imoveis
