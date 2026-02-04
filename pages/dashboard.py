@@ -1,4 +1,10 @@
 import streamlit as st
+
+if not st.session_state.get("logado"):
+    st.warning("Você precisa estar logado para acessar esta página.")
+    st.stop()
+
+import streamlit as st
 from services.banco import listar_imoveis
 
 if not st.session_state.get("logado"):
