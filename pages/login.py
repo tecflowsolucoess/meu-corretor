@@ -1,10 +1,5 @@
 import streamlit as st
 
-st.title("🔐 Login - MEU CORRETOR")
-
-email = st.text_input("E-mail")
-senha = st.text_input("Senha", type="password")
-
 if st.button("Entrar"):
     usuarios = st.session_state.get("usuarios", [])
 
@@ -17,9 +12,10 @@ if st.button("Entrar"):
         st.session_state.logado = True
         st.session_state.usuario = usuario["nome"]
         st.success("Login realizado com sucesso!")
-        st.page_link("pages/dashboard.py", label="Ir para o painel")
+        st.switch_page("pages/dashboard.py")
     else:
         st.error("E-mail ou senha inválidos")
+
 
 st.divider()
 st.page_link("pages/cadastro.py", label="📝 Criar conta")
