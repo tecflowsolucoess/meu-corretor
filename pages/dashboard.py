@@ -1,13 +1,25 @@
 import streamlit as st
+from services.session_service import recuperar_usuario_logado, limpar_login
 from services.banco import listar_imoveis
 
 st.set_page_config(page_title="Painel do Corretor", layout="wide")
 
+# 🔒 Proteção
 if not st.session_state.get("logado"):
-    st.warning("Você precisa estar logado")
-    st.switch_page("pages/login.py")
+    usuario_id = recuperar_usuario_logado()
+
+    if not usuario_id:
+        st.switch_page("pages/login.py")
+    else:
+        st.session_state.logado = True
+        st.session_state.usuario = {"id": usuario_id}
 
 st.title("📊 Painel do Corretor")
+
+if st.button("🚪 Sair"):
+    limpar_login()
+    st.session_state.clear()
+    st.switch_page("pages/login.py")
 
 imoveis = listar_imoveis(st.session_state.usuario)
 
