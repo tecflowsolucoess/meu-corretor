@@ -21,6 +21,15 @@ senha = st.text_input("Senha", type="password", key="login_senha")
 
 if st.button("Entrar"):
    usuarios = carregar_usuarios()
+    import json
+from pathlib import Path
+
+ARQUIVO_USUARIOS = Path("data/usuarios.json")
+
+if ARQUIVO_USUARIOS.exists():
+    usuarios = json.loads(ARQUIVO_USUARIOS.read_text())
+else:
+    usuarios = []
 
     usuario = next(
         (u for u in usuarios if u["email"] == email and u["senha"] == senha),
