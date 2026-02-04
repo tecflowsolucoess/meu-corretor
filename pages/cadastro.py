@@ -26,16 +26,22 @@ creci = st.text_input("CRECI")
 whatsapp = st.text_input("WhatsApp")
 
 if st.button("Criar conta"):
-    if not nome or not email or not senha:
+    usuarios = carregar_usuarios()
+
+    if any(u["email"] == email for u in usuarios):
+        st.error("Este e-mail já está cadastrado.")
+    elif not nome or not email or not senha:
         st.error("Preencha todos os campos obrigatórios.")
     else:
-        st.session_state.usuarios.append({
+        usuarios.append({
             "nome": nome,
             "email": email,
             "senha": senha,
             "creci": creci,
             "whatsapp": whatsapp
         })
-        st.success("Cadastro realizado com sucesso! Agora faça login.")
-        st.page_link("pages/login.py", label="Ir para o login")
+
+        salvar_usuarios(usuarios)
+        st.success("Cadastro realizado com sucesso!")
+        st.switch_page("pages/login.py")
 
