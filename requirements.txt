@@ -4,3 +4,4 @@ pandas
 bcrypt
 python-dotenv
 requests
+supabase
