@@ -1,3 +1,13 @@
+import json
+from pathlib import Path
+
+ARQUIVO_USUARIOS = Path("data/usuarios.json")
+
+def carregar_usuarios():
+    if ARQUIVO_USUARIOS.exists():
+        return json.loads(ARQUIVO_USUARIOS.read_text())
+    return []
+
 import streamlit as st
 
 st.title("🔐 Login - MEU CORRETOR")
